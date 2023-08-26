@@ -16,16 +16,42 @@ for i in range(rows):
     arr.append(row)
 print(arr)
 """
+"""
 suma = []
 wartosci = []
-price = [20,60,40,50]
+price = [200,60,4,500]
 arr = [[1,0,0,1],[1,1,1,0],[1,0,1,0],[0,1,0,1]]
+
+
+
 for i in range(0, len(arr)):
     suma.append(sum(arr[i]))
     wartosci.append(price[i] / suma[i])
+wartosci.append(pow(10,10))
 
-#print(wartosci[wartosci != 0])
+print(wartosci)
+
+min_var = [1000,1000,10000,10000,10000,10000]
+pozycja = [10,10,10,10,10,10,10]
+min_var[0] = wartosci[0]
+pozycja[0] = 0
+for i in range(1,len(wartosci)):
+    if (wartosci[i] < min_var[i-1]) and wartosci[i] != 0:
+        min_var[i-1] = wartosci[i]
+        pozycja[i] = i
+    elif (wartosci[i] == min_var[i-1]) and wartosci[i] != 0:
+        min_var[i] = wartosci[i]
+        pozycja[i+1] = i+1
+print(min_var)
+for i in range(0,len(min_var)):
+    if min_var[i] != min_var[i+1]:
+        del min_var[i+1:]
+        break
+print(min_var)
+print(pozycja)
+
 #x1 = np.min(wartosci[np.nonzero(wartosci)])
+"""
 """
 def algorythm(price,services):
     wydatek = 0
@@ -60,3 +86,29 @@ def algorythm(price,services):
 
 algorythm(arr)
 """
+
+wartosci = []
+price = [300,600,600,50]
+uslugi = ['A','B','C','D','E']
+wybrane_firmy = []
+arr = [['A','C','E'],['B','D'],['A','D'],['B','C','E','A']]
+
+for i in range(0,len(arr)):
+    wartosci.append(price[i]/len(arr[i][:]))
+print(wartosci)
+
+wartosci_sort = sorted(wartosci)
+print(wartosci_sort)
+
+minimum = wartosci_sort[0]
+print(minimum)
+
+pozycja_min = 0
+for i in range(0,len(wartosci_sort)):
+    if minimum == wartosci[i]:
+        pozycja_min = i
+        break
+#wybrane_firmy.append(pozycja_min)
+print(pozycja_min)
+
+print()
