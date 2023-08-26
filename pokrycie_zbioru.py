@@ -93,16 +93,20 @@ algorythm(arr)
 wartosci = []
 
 # Ogólna cena za wszystkie usługi danej firmy
-price = [300,600,600,50]
+price = [300,600,600,500]
 
 # Lista wszystkich możliwych usług
 uslugi = ['A','B','C','D','E']
+
+
 
 # Wynik algorytmu (wybrane firmy)
 wybrane_firmy = []
 
 # Tablica wejściowa firm z usługami
-arr = [['A','C','E'],['B','D'],['A','D'],['B','C','E','A']]
+arr = [['A','C','E'],['B','D'],['A','D'],['B','C','E']]
+
+
 
 # Stworzenie listy wartości
 for i in range(0,len(arr)):
@@ -123,12 +127,17 @@ for i in range(0,len(wartosci_sort)):
     if minimum == wartosci[i]:
         pozycja_min = i
         break
-# wybrane_firmy.append(pozycja_min)
+wybrane_firmy.append(pozycja_min)
 print("Minimalna pozycja: ",pozycja_min)
 
 # Wyznaczenie brakujących usług
 roznica = list(set(uslugi) - set(arr[pozycja_min]))
-# Usun
+
+# Warunek zakończenia algorytmu
+# if len(roznica) == 0:
+#    break
+
+# Usunięcie wybranych usług
 arr.pop(pozycja_min)
 
 print("roznica: ", roznica)
