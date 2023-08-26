@@ -103,14 +103,16 @@ uslugi = ['A','B','C','D','E']
 # Wynik algorytmu (wybrane firmy)
 wybrane_firmy = []
 
-# Tablica wejściowa firm z usługami
-arr = [['A','C','E'],['B','D'],['A','D'],['B','C','E']]
-
-
+# Słownik wejściowy firm z usługami
+arr = {'P0':['A','C','E'],
+       'P1':['B','D'],
+       'P2':['A','D'],
+       'P3':['B','C','E']}
+print(len(arr))
 
 # Stworzenie listy wartości
 for i in range(0,len(arr)):
-    wartosci.append(price[i]/len(arr[i][:]))
+    wartosci.append(price[i]/len(arr['P'+str(i)][:]))
 print("Wartości: ",wartosci)
 
 # Posortowanie wartości
@@ -127,18 +129,19 @@ for i in range(0,len(wartosci_sort)):
     if minimum == wartosci[i]:
         pozycja_min = i
         break
-wybrane_firmy.append(pozycja_min)
+wybrane_firmy.append('P' + str(pozycja_min))
 print("Minimalna pozycja: ",pozycja_min)
 
 # Wyznaczenie brakujących usług
-roznica = list(set(uslugi) - set(arr[pozycja_min]))
+roznica = list(set(uslugi) - set(arr['P' + str(pozycja_min)]))
+print("roznica: ", roznica)
+print("Wybrane firmy: ", wybrane_firmy)
 
 # Warunek zakończenia algorytmu
 # if len(roznica) == 0:
 #    break
 
 # Usunięcie wybranych usług
-arr.pop(pozycja_min)
+del arr['P' + str(pozycja_min)]
 
-print("roznica: ", roznica)
 print("arr: ",arr)
