@@ -87,28 +87,49 @@ def algorythm(price,services):
 algorythm(arr)
 """
 
+
+
+# Lista wartości jednostkowych danej usługi
 wartosci = []
+
+# Ogólna cena za wszystkie usługi danej firmy
 price = [300,600,600,50]
+
+# Lista wszystkich możliwych usług
 uslugi = ['A','B','C','D','E']
+
+# Wynik algorytmu (wybrane firmy)
 wybrane_firmy = []
+
+# Tablica wejściowa firm z usługami
 arr = [['A','C','E'],['B','D'],['A','D'],['B','C','E','A']]
 
+# Stworzenie listy wartości
 for i in range(0,len(arr)):
     wartosci.append(price[i]/len(arr[i][:]))
-print(wartosci)
+print("Wartości: ",wartosci)
 
+# Posortowanie wartości
 wartosci_sort = sorted(wartosci)
-print(wartosci_sort)
+print("Posortowane wartosci: ",wartosci_sort)
 
+# Wyznaczenie minimalnej wartości jednostkowej
 minimum = wartosci_sort[0]
-print(minimum)
+print("Minimum: ",minimum)
 
+# Wyznaczenie minimalnej pozycji
 pozycja_min = 0
 for i in range(0,len(wartosci_sort)):
     if minimum == wartosci[i]:
         pozycja_min = i
         break
-#wybrane_firmy.append(pozycja_min)
-print(pozycja_min)
+# wybrane_firmy.append(pozycja_min)
+print("Minimalna pozycja: ",pozycja_min)
 
-print()
+# Wyznaczenie brakujących usług
+roznica = list(set(uslugi) - set(arr[pozycja_min]))
+# Usun
+arr.pop(pozycja_min)
+
+print("roznica: ", roznica)
+print("arr: ",arr)
