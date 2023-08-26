@@ -1,6 +1,78 @@
 from numpy import matrix
 import numpy as np
+
+# Lista wartości jednostkowych danej usługi
+wartosci = []
+
+# Ogólna cena za wszystkie usługi danej firmy
+price = [300,60,600,500]
+
+# Lista wszystkich możliwych usług
+uslugi = ['A','B','C','D','E']
+
+# Wynik algorytmu (wybrane firmy)
+wybrane_firmy = []
+
+# Słownik wejściowy firm z usługami
+arr = {'P0':['A','C','E'],
+       'P1':['B','D'],
+       'P2':['A','D'],
+       'P3':['B','C','E']}
+
+for a in range(0,3):
+    k = 0
+    numbers = [int(klucz[1:]) for klucz in arr.keys()]
+    print(numbers)
+
+    # Stworzenie listy wartości
+    for i in numbers:
+        wartosci.append(price[k]/len(arr['P'+str(i)][:]))
+        k+=1
+    print("Wartości: ",wartosci)
+
+    # Posortowanie wartości
+    wartosci_sort = sorted(wartosci)
+    print("Posortowane wartosci: ",wartosci_sort)
+
+    # Wyznaczenie minimalnej wartości jednostkowej
+    minimum = wartosci_sort[0]
+    print("Minimum: ",minimum)
+
+    # Wyznaczenie minimalnej pozycji
+    pozycja_min = 0
+    for i in range(0,len(wartosci_sort)):
+        if minimum == wartosci[i]:
+            pozycja_min = i
+            break
+    wybrane_firmy.append('P' + str(pozycja_min))
+    print("Minimalna pozycja: ",pozycja_min)
+
+    # Wyznaczenie brakujących usług
+    roznica = list(set(uslugi) - set(arr['P' + str(pozycja_min)]))
+    print("roznica: ", roznica)
+    print("Wybrane firmy: ", wybrane_firmy)
+
+    uslugi = list(set(uslugi) - set(arr['P' + str(pozycja_min)]))
+    # Warunek zakończenia algorytmu
+    if len(roznica) == 0:
+        break
+
+    # Usunięcie wybranych usług
+    del arr['P' + str(pozycja_min)]
+    del wartosci[pozycja_min]
+    del price[pozycja_min]
+
+    print("arr: ",arr)
+    print("wart: ",wartosci)
+
+
 """
+for i, klucz in enumerate(arr):
+    wartosci.append(price[i] / len(arr[klucz]))
+"""
+
+"""TESTY
+
 # Creating array step I
 price_vector_temp = input("Enter price vector (use space to separate): ")
 price_vector = price_vector_temp.split( )
@@ -86,62 +158,3 @@ def algorythm(price,services):
 
 algorythm(arr)
 """
-
-
-
-# Lista wartości jednostkowych danej usługi
-wartosci = []
-
-# Ogólna cena za wszystkie usługi danej firmy
-price = [300,600,600,500]
-
-# Lista wszystkich możliwych usług
-uslugi = ['A','B','C','D','E']
-
-
-
-# Wynik algorytmu (wybrane firmy)
-wybrane_firmy = []
-
-# Słownik wejściowy firm z usługami
-arr = {'P0':['A','C','E'],
-       'P1':['B','D'],
-       'P2':['A','D'],
-       'P3':['B','C','E']}
-print(len(arr))
-
-# Stworzenie listy wartości
-for i in range(0,len(arr)):
-    wartosci.append(price[i]/len(arr['P'+str(i)][:]))
-print("Wartości: ",wartosci)
-
-# Posortowanie wartości
-wartosci_sort = sorted(wartosci)
-print("Posortowane wartosci: ",wartosci_sort)
-
-# Wyznaczenie minimalnej wartości jednostkowej
-minimum = wartosci_sort[0]
-print("Minimum: ",minimum)
-
-# Wyznaczenie minimalnej pozycji
-pozycja_min = 0
-for i in range(0,len(wartosci_sort)):
-    if minimum == wartosci[i]:
-        pozycja_min = i
-        break
-wybrane_firmy.append('P' + str(pozycja_min))
-print("Minimalna pozycja: ",pozycja_min)
-
-# Wyznaczenie brakujących usług
-roznica = list(set(uslugi) - set(arr['P' + str(pozycja_min)]))
-print("roznica: ", roznica)
-print("Wybrane firmy: ", wybrane_firmy)
-
-# Warunek zakończenia algorytmu
-# if len(roznica) == 0:
-#    break
-
-# Usunięcie wybranych usług
-del arr['P' + str(pozycja_min)]
-
-print("arr: ",arr)
