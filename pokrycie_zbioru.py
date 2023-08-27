@@ -1,11 +1,9 @@
+# Import bibliotek
 from numpy import matrix
 import numpy as np
 
 # Lista wartości jednostkowych danej usługi
 wartosci = []
-
-# Ogólna cena za wszystkie usługi danej firmy
-#price = [60,70,120,30,80]
 
 # Lista wszystkich możliwych usług
 uslugi = ['A','B','C','D','E']
@@ -20,8 +18,18 @@ arr = {'P0':['A','D',60],
        'P3':['C','E',30],
        'P4':['B','D',80]}
 
+
+
+# Iterator wybranych firm
 a = 0
-wus =[]
+
+# Ogólny koszt
+koszt = 0
+
+# Lista wybrancyh wszystkich uslug
+koncowe_uslugi =[]
+
+# Główna pętla
 while(True):
 
     # Stworzenie listy wartości
@@ -45,6 +53,7 @@ while(True):
     for key, values in arr.items():
         if values and values[-1] == minimum*(len(values)-1):
             wybrane_firmy.append(str(key))
+            koszt += minimum*(len(values)-1)
 
     print("arr:  ",arr)
 
@@ -56,14 +65,13 @@ while(True):
         wybrane_uslugi = arr[wybrane_firmy[a]][:-1]
 
     roznica = list(set(uslugi) - set(wybrane_uslugi))
-    wus.extend(wybrane_uslugi)
+    koncowe_uslugi.extend(wybrane_uslugi)
 
-    unique_values = set(wus)
+    unique_values = set(koncowe_uslugi)
 
     # Konwersja zbioru z powrotem na listę
     unique_list = list(unique_values)
     print("riznicaaa: ", unique_list)
-
     print("Wybrane usługi:", wybrane_uslugi)
     print("roznica: ", roznica)
     print("Wybrane firmy: ", wybrane_firmy)
@@ -91,114 +99,28 @@ while(True):
         del arr[key]
 
     print("-----------------------")
+    print("Całkowity koszt: ",koszt," zł")
+    print("Wybrane firmy: ",wybrane_firmy)
     if len(unique_list) == len(uslugi):
         break
+
 """
+## Testowa tablica
+# A B C D E F G H I J
+# 1 2 3 4 5 6 7 8 9 10
 
-# Warunek zakończenia algorytmu
-#if len(roznica) == 0:
-   # break
-
-# Usunięcie wybranych usług
-
-
-print("arr: ",arr)
-print("--------------------------------")
-
-
-
-
-
-
-
-for i, klucz in enumerate(arr):
-    wartosci.append(price[i] / len(arr[klucz]))
-"""
-
-"""TESTY
-
-# Creating array step I
-price_vector_temp = input("Enter price vector (use space to separate): ")
-price_vector = price_vector_temp.split( )
-rows = int(input("Enter number of rows:"))
-cols = rows
-arr = []
-
-# Creating array step II
-for i in range(rows):
-    row_input = input(f"Enter data for first row {i+1} (use space to separate): ")
-    row_values = row_input.split( )
-    row = [int(value) for value in row_values]
-    arr.append(row)
-print(arr)
-"""
-"""
-suma = []
-wartosci = []
-price = [200,60,4,500]
-arr = [[1,0,0,1],[1,1,1,0],[1,0,1,0],[0,1,0,1]]
+uslugi = ['A','B','C','D','E','F','G','H','I','J']
+arr = {'P0':['A','D','H','J',715],
+       'P1':['B','E','I',582],
+       'P2':['A','F','I',745],
+       'P3':['D','H',500],
+       'P4':['E','H','I',610],
+       'P5':['A','C','G','J',241],
+       'P6':['F','G','J',310],
+       'P7':['B','E','H',72],
+       'P8':['C','D','F','I',1166],
+       'P9':['B','C','G',38]
+}
 
 
-
-for i in range(0, len(arr)):
-    suma.append(sum(arr[i]))
-    wartosci.append(price[i] / suma[i])
-wartosci.append(pow(10,10))
-
-print(wartosci)
-
-min_var = [1000,1000,10000,10000,10000,10000]
-pozycja = [10,10,10,10,10,10,10]
-min_var[0] = wartosci[0]
-pozycja[0] = 0
-for i in range(1,len(wartosci)):
-    if (wartosci[i] < min_var[i-1]) and wartosci[i] != 0:
-        min_var[i-1] = wartosci[i]
-        pozycja[i] = i
-    elif (wartosci[i] == min_var[i-1]) and wartosci[i] != 0:
-        min_var[i] = wartosci[i]
-        pozycja[i+1] = i+1
-print(min_var)
-for i in range(0,len(min_var)):
-    if min_var[i] != min_var[i+1]:
-        del min_var[i+1:]
-        break
-print(min_var)
-print(pozycja)
-
-#x1 = np.min(wartosci[np.nonzero(wartosci)])
-"""
-"""
-def algorythm(price,services):
-    wydatek = 0
-    firmy = []
-    j = 1
-    suma = []
-    wartosci = []
-    l_uslug = len(services)
-    l_firm = l_uslug
-
-    while(True):
-        for i in range(0, len(services)):
-            suma.append(sum(services[i]))
-            wartosci.append(price[i] / suma[i])
-
-        if sum(suma) == 0:
-            break
-
-        else:
-            x1 = np.min(wartosci[np.nonzero(wartosci)])
-            if len(x1) > 1:
-                x1 = x1[random(0:len(x1), 1)]
-            wspl < - which(uslugi[, x1] == 1 )
-            uslugi[wspl,] < - 0
-            suma[x1] < - 0
-            wartosci[x1] < - 0
-            uslugi[, x1] < - 0
-            wydatek < - wydatek + cena[x1]
-            firmy[j] < - x1
-            j = j + 1
-
-
-algorythm(arr)
 """
