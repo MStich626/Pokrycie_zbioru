@@ -55,16 +55,10 @@ while(True):
             wybrane_firmy.append(str(key))
             koszt += minimum*(len(values)-1)
 
-    print("arr:  ",arr)
-
     # Wyznaczenie brakujących usług
-    print("a:", a)
-    print("wybranefirm od a:  ", wybrane_firmy[a])
-    print("Wybrane firmy: ", wybrane_firmy)
     if wybrane_firmy[a] in arr:
         wybrane_uslugi = arr[wybrane_firmy[a]][:-1]
 
-    roznica = list(set(uslugi) - set(wybrane_uslugi))
     koncowe_uslugi.extend(wybrane_uslugi)
 
     unique_values = set(koncowe_uslugi)
