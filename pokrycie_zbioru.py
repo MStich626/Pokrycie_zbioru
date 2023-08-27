@@ -5,7 +5,7 @@ import numpy as np
 wartosci = []
 
 # Ogólna cena za wszystkie usługi danej firmy
-price = [300,60,600,500]
+price = [60,70,120,30,80]
 
 # Lista wszystkich możliwych usług
 uslugi = ['A','B','C','D','E']
@@ -14,20 +14,22 @@ uslugi = ['A','B','C','D','E']
 wybrane_firmy = []
 
 # Słownik wejściowy firm z usługami
-arr = {'P0':['A','C','E'],
-       'P1':['B','D'],
-       'P2':['A','D'],
-       'P3':['B','C','E']}
+arr = {'P0':['A','D'],
+       'P1':['A','E'],
+       'P2':['B','C','E'],
+       'P3':['C','E'],
+       'P4':['B','D']}
 
-for a in range(0,3):
+for i in range(0,4):
     k = 0
     numbers = [int(klucz[1:]) for klucz in arr.keys()]
-    print(numbers)
+    print("numbers: ",numbers)
 
     # Stworzenie listy wartości
     for i in numbers:
-        wartosci.append(price[k]/len(arr['P'+str(i)][:]))
-        k+=1
+        if len(arr['P'+str(i)][:]) != 0:
+            wartosci.append(price[k]/len(arr['P'+str(i)][:]))
+            k+=1
     print("Wartości: ",wartosci)
 
     # Posortowanie wartości
@@ -45,25 +47,38 @@ for a in range(0,3):
             pozycja_min = i
             break
     wybrane_firmy.append('P' + str(pozycja_min))
+
+
+    print("arr:  ",arr)
     print("Minimalna pozycja: ",pozycja_min)
 
     # Wyznaczenie brakujących usług
     roznica = list(set(uslugi) - set(arr['P' + str(pozycja_min)]))
+    print("Wybrane usługi:", arr['P' + str(pozycja_min)])
     print("roznica: ", roznica)
     print("Wybrane firmy: ", wybrane_firmy)
 
     uslugi = list(set(uslugi) - set(arr['P' + str(pozycja_min)]))
+    key_to_remove = ('P' + str(pozycja_min))
+    if key_to_remove in arr:
+        values_to_remove = arr[key_to_remove]
+        arr[key_to_remove] = []  # Ustaw puste wartości dla wybranego klucza
+
+        for key in arr:
+            arr[key] = [value for value in arr[key] if value not in values_to_remove]
+
+    print("Nowe arr:  ",arr)
     # Warunek zakończenia algorytmu
     if len(roznica) == 0:
         break
 
     # Usunięcie wybranych usług
-    del arr['P' + str(pozycja_min)]
-    del wartosci[pozycja_min]
-    del price[pozycja_min]
+    #del arr['P' + str(pozycja_min)]
+    del wartosci[:]
+    price[pozycja_min] = 10000000
 
     print("arr: ",arr)
-    print("wart: ",wartosci)
+    print("--------------------------------")
 
 
 """
