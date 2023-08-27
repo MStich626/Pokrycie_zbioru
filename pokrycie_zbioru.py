@@ -20,7 +20,7 @@ arr = {'P0':['A','D'],
        'P3':['C','E'],
        'P4':['B','D']}
 
-for i in range(0,4):
+for i in range(0,5):
     k = 0
     numbers = [int(klucz[1:]) for klucz in arr.keys()]
     print("numbers: ",numbers)
