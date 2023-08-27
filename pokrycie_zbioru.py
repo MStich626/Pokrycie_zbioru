@@ -21,6 +21,7 @@ arr = {'P0':['A','D',60],
        'P4':['B','D',80]}
 
 a = 0
+wus =[]
 while(True):
 
     # Stworzenie listy wartości
@@ -55,8 +56,14 @@ while(True):
         wybrane_uslugi = arr[wybrane_firmy[a]][:-1]
 
     roznica = list(set(uslugi) - set(wybrane_uslugi))
-    if len(roznica) == 0:
-        break
+    wus.extend(wybrane_uslugi)
+
+    unique_values = set(wus)
+
+    # Konwersja zbioru z powrotem na listę
+    unique_list = list(unique_values)
+    print("riznicaaa: ", unique_list)
+
     print("Wybrane usługi:", wybrane_uslugi)
     print("roznica: ", roznica)
     print("Wybrane firmy: ", wybrane_firmy)
@@ -84,6 +91,8 @@ while(True):
         del arr[key]
 
     print("-----------------------")
+    if len(unique_list) == len(uslugi):
+        break
 """
 
 # Warunek zakończenia algorytmu
