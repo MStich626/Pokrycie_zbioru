@@ -57,50 +57,51 @@ while(True):
 
     print("arr:  ",arr)
 
-    # Wyznaczenie brakujących usług
-    print("a:", a)
+    # Wyznaczenie wybranych usług
     print("wybranefirm od a:  ", wybrane_firmy[a])
     print("Wybrane firmy: ", wybrane_firmy)
     if wybrane_firmy[a] in arr:
         wybrane_uslugi = arr[wybrane_firmy[a]][:-1]
 
-    roznica = list(set(uslugi) - set(wybrane_uslugi))
+    # Dodanie wybranych usług do końcowych usług
     koncowe_uslugi.extend(wybrane_uslugi)
-
     unique_values = set(koncowe_uslugi)
 
     # Konwersja zbioru z powrotem na listę
     unique_list = list(unique_values)
-    print("riznicaaa: ", unique_list)
+
     print("Wybrane usługi:", wybrane_uslugi)
-    print("roznica: ", roznica)
     print("Wybrane firmy: ", wybrane_firmy)
     print("arr:  ",arr)
 
 
-    ####
+    # Usunięcie z całego słownika wartości, które były zawarte w wybranej firmie
     for key in arr:
         arr[key] = [value for value in arr[key] if value not in wybrane_uslugi]
 
+    # Usunięcie pary klucz-wartość (firma), które już wybraliśmy
     del arr[wybrane_firmy[a]]
     a += 1
     print("arr:  ",arr)
 
+    # Wyczyszczenie listy wartości przed kolejną iteracją
     del wartosci[:]
 
-
+    # Usunięcie par klucz-wartość (firm) ze słownika, gdzie nie ma już potrzebnych usług
     keys_to_remove = []
-
     for key, values in arr.items():
-        if len(values) == 1:  # Sprawdzamy, czy liczba wartości wynosi 1
+        if len(values) == 1:
             keys_to_remove.append(key)
-
     for key in keys_to_remove:
         del arr[key]
 
     print("-----------------------")
+
+    # Wypisanie końcowych informacji
     print("Całkowity koszt: ",koszt," zł")
     print("Wybrane firmy: ",wybrane_firmy)
+
+    # Warunek kończący pętlę
     if len(unique_list) == len(uslugi):
         break
 
