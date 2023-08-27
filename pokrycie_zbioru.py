@@ -5,7 +5,7 @@ import numpy as np
 wartosci = []
 
 # Ogólna cena za wszystkie usługi danej firmy
-price = [60,70,120,30,80]
+#price = [60,70,120,30,80]
 
 # Lista wszystkich możliwych usług
 uslugi = ['A','B','C','D','E']
@@ -14,23 +14,23 @@ uslugi = ['A','B','C','D','E']
 wybrane_firmy = []
 
 # Słownik wejściowy firm z usługami
-arr = {'P0':['A','D'],
-       'P1':['A','E'],
-       'P2':['B','C','E'],
-       'P3':['C','E'],
-       'P4':['B','D']}
+arr = {'P0':['A','D',60],
+       'P1':['A','E',70],
+       'P2':['B','C','E',120],
+       'P3':['C','E',30],
+       'P4':['B','D',80]}
 
-for i in range(0,5):
-    k = 0
-    numbers = [int(klucz[1:]) for klucz in arr.keys()]
-    print("numbers: ",numbers)
+a = 0
+while(True):
 
     # Stworzenie listy wartości
-    for i in numbers:
-        if len(arr['P'+str(i)][:]) != 0:
-            wartosci.append(price[k]/len(arr['P'+str(i)][:]))
-            k+=1
-    print("Wartości: ",wartosci)
+    r = 0
+    l_wartosci = []
+    for klucz, wartosc in arr.items():
+        l_wartosci.append(len(wartosc)-1)
+        wartosci.append((wartosc[-1]) / l_wartosci[r])
+        r += 1
+    print("wartosci:  ",wartosci)
 
     # Posortowanie wartości
     wartosci_sort = sorted(wartosci)
@@ -40,48 +40,68 @@ for i in range(0,5):
     minimum = wartosci_sort[0]
     print("Minimum: ",minimum)
 
-    # Wyznaczenie minimalnej pozycji
-    pozycja_min = 0
-    for i in range(0,len(wartosci_sort)):
-        if minimum == wartosci[i]:
-            pozycja_min = i
-            break
-    wybrane_firmy.append('P' + str(pozycja_min))
-
+    # Wyznaczenie firmy o najlepszej cenie
+    for key, values in arr.items():
+        if values and values[-1] == minimum*(len(values)-1):
+            wybrane_firmy.append(str(key))
 
     print("arr:  ",arr)
-    print("Minimalna pozycja: ",pozycja_min)
 
     # Wyznaczenie brakujących usług
-    roznica = list(set(uslugi) - set(arr['P' + str(pozycja_min)]))
-    print("Wybrane usługi:", arr['P' + str(pozycja_min)])
-    print("roznica: ", roznica)
+    print("a:", a)
+    print("wybranefirm od a:  ", wybrane_firmy[a])
     print("Wybrane firmy: ", wybrane_firmy)
+    if wybrane_firmy[a] in arr:
+        wybrane_uslugi = arr[wybrane_firmy[a]][:-1]
 
-    uslugi = list(set(uslugi) - set(arr['P' + str(pozycja_min)]))
-    key_to_remove = ('P' + str(pozycja_min))
-    if key_to_remove in arr:
-        values_to_remove = arr[key_to_remove]
-        arr[key_to_remove] = []  # Ustaw puste wartości dla wybranego klucza
-
-        for key in arr:
-            arr[key] = [value for value in arr[key] if value not in values_to_remove]
-
-    print("Nowe arr:  ",arr)
-    # Warunek zakończenia algorytmu
+    roznica = list(set(uslugi) - set(wybrane_uslugi))
     if len(roznica) == 0:
         break
+    print("Wybrane usługi:", wybrane_uslugi)
+    print("roznica: ", roznica)
+    print("Wybrane firmy: ", wybrane_firmy)
+    print("arr:  ",arr)
 
-    # Usunięcie wybranych usług
-    #del arr['P' + str(pozycja_min)]
+
+    ####
+    for key in arr:
+        arr[key] = [value for value in arr[key] if value not in wybrane_uslugi]
+
+    del arr[wybrane_firmy[a]]
+    a += 1
+    print("arr:  ",arr)
+
     del wartosci[:]
-    price[pozycja_min] = 10000000
-
-    print("arr: ",arr)
-    print("--------------------------------")
 
 
+    keys_to_remove = []
+
+    for key, values in arr.items():
+        if len(values) == 1:  # Sprawdzamy, czy liczba wartości wynosi 1
+            keys_to_remove.append(key)
+
+    for key in keys_to_remove:
+        del arr[key]
+
+    print("-----------------------")
 """
+
+# Warunek zakończenia algorytmu
+#if len(roznica) == 0:
+   # break
+
+# Usunięcie wybranych usług
+
+
+print("arr: ",arr)
+print("--------------------------------")
+
+
+
+
+
+
+
 for i, klucz in enumerate(arr):
     wartosci.append(price[i] / len(arr[klucz]))
 """
