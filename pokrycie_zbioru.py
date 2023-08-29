@@ -1,15 +1,11 @@
-# Import bibliotek
-from numpy import matrix
-import numpy as np
-
 # Lista wartości jednostkowych danej usługi
-wartosci = []
+list_of_values = []
 
 # Lista wszystkich możliwych usług
-uslugi = ['A','B','C','D','E']
+services = ['A','B','C','D','E']
 
 # Wynik algorytmu (wybrane firmy)
-wybrane_firmy = []
+selected_companes = []
 
 # Słownik wejściowy firm z usługami
 arr = {'P0':['A','D',60],
@@ -22,59 +18,59 @@ arr = {'P0':['A','D',60],
 a = 0
 
 # Ogólny koszt
-koszt = 0
+price = 0
 
 # Lista wybrancyh wszystkich uslug
-koncowe_uslugi =[]
+final_services =[]
 
 # Główna pętla
 while(True):
 
     # Stworzenie listy wartości
     r = 0
-    l_wartosci = []
-    for klucz, wartosc in arr.items():
-        l_wartosci.append(len(wartosc)-1)
-        wartosci.append((wartosc[-1]) / l_wartosci[r])
+    temp_list_of_values = []
+    for key, values in arr.items():
+        temp_list_of_values.append(len(values)-1)
+        list_of_values.append((values[-1]) / temp_list_of_values[r])
         r += 1
 
     # Posortowanie wartości
-    wartosci_sort = sorted(wartosci)
+    sorted_values = sorted(list_of_values)
 
     # Wyznaczenie minimalnej wartości jednostkowej
-    minimum = wartosci_sort[0]
+    minimum = sorted_values[0]
 
     # Wyznaczenie firmy o najlepszej cenie
     for key, values in arr.items():
         if values and values[-1] == minimum*(len(values)-1):
-            wybrane_firmy.append(str(key))
-            koszt += minimum*(len(values)-1)
+            selected_companes.append(str(key))
+            price += minimum*(len(values)-1)
 
     # Wyznaczenie brakujących usług
-    if wybrane_firmy[a] in arr:
-        wybrane_uslugi = arr[wybrane_firmy[a]][:-1]
+    if selected_companes[a] in arr:
+        selected_services = arr[selected_companes[a]][:-1]
 
     # Wyznaczenie wybranych usług
-    if wybrane_firmy[a] in arr:
-        wybrane_uslugi = arr[wybrane_firmy[a]][:-1]
+    if selected_companes[a] in arr:
+        selected_services = arr[selected_companes[a]][:-1]
 
     # Dodanie wybranych usług do końcowych usług
-    koncowe_uslugi.extend(wybrane_uslugi)
-    unique_values = set(koncowe_uslugi)
+    final_services.extend(selected_services)
+    unique_values = set(final_services)
 
     # Konwersja zbioru z powrotem na listę
     unique_list = list(unique_values)
 
     # Usunięcie z całego słownika wartości, które były zawarte w wybranej firmie
     for key in arr:
-        arr[key] = [value for value in arr[key] if value not in wybrane_uslugi]
+        arr[key] = [value for value in arr[key] if value not in selected_services]
 
     # Usunięcie pary klucz-wartość (firma), które już wybraliśmy
-    del arr[wybrane_firmy[a]]
+    del arr[selected_companes[a]]
     a += 1
 
     # Wyczyszczenie listy wartości przed kolejną iteracją
-    del wartosci[:]
+    del list_of_values[:]
 
     # Usunięcie par klucz-wartość (firm) ze słownika, gdzie nie ma już potrzebnych usług
     keys_to_remove = []
@@ -85,20 +81,20 @@ while(True):
         del arr[key]
 
     # Warunek kończący pętlę
-    if len(unique_list) == len(uslugi):
+    if len(unique_list) == len(services):
         break
 
 # Wypisanie końcowych informacji
-print("Całkowity koszt: ",koszt," zł")
-print("Wybrane firmy: ",wybrane_firmy)
+print("Final price: ",price," zł")
+print("Selected companes: ",selected_companes)
 
 
 """
-## Testowa tablica
+## Other data (longer)
 # A B C D E F G H I J
 # 1 2 3 4 5 6 7 8 9 10
 
-uslugi = ['A','B','C','D','E','F','G','H','I','J']
+services = ['A','B','C','D','E','F','G','H','I','J']
 arr = {'P0':['A','D','H','J',715],
        'P1':['B','E','I',582],
        'P2':['A','F','I',745],
