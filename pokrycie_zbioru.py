@@ -1,32 +1,32 @@
-# Lista wartości jednostkowych danej usługi
+# List of service unit values
 list_of_values = []
 
-# Lista wszystkich możliwych usług
+# List of possible services
 services = ['A','B','C','D','E']
 
-# Wynik algorytmu (wybrane firmy)
+# Algorithm results (selected companes)
 selected_companes = []
 
-# Słownik wejściowy firm z usługami
+# Input dictionary (services and price on last place)
 arr = {'P0':['A','D',60],
        'P1':['A','E',70],
        'P2':['B','C','E',120],
        'P3':['C','E',30],
        'P4':['B','D',80]}
 
-# Iterator wybranych firm
+# Iterator selected companies
 a = 0
 
-# Ogólny koszt
+# Price
 price = 0
 
-# Lista wybrancyh wszystkich uslug
+# List selected services
 final_services =[]
 
-# Główna pętla
+# Main loop
 while(True):
 
-    # Stworzenie listy wartości
+    # Create temporary list of values
     r = 0
     temp_list_of_values = []
     for key, values in arr.items():
@@ -34,45 +34,43 @@ while(True):
         list_of_values.append((values[-1]) / temp_list_of_values[r])
         r += 1
 
-    # Posortowanie wartości
+    # Sorting list of values
     sorted_values = sorted(list_of_values)
 
-    # Wyznaczenie minimalnej wartości jednostkowej
+    # Select minimum from values
     minimum = sorted_values[0]
 
-    # Wyznaczenie firmy o najlepszej cenie
+    # Finding company with lowest price
     for key, values in arr.items():
         if values and values[-1] == minimum*(len(values)-1):
             selected_companes.append(str(key))
             price += minimum*(len(values)-1)
 
-    # Wyznaczenie brakujących usług
+    # Finding of missing services
     if selected_companes[a] in arr:
         selected_services = arr[selected_companes[a]][:-1]
 
-    # Wyznaczenie wybranych usług
-    if selected_companes[a] in arr:
-        selected_services = arr[selected_companes[a]][:-1]
-
-    # Dodanie wybranych usług do końcowych usług
+    # Adding selected services to final services
     final_services.extend(selected_services)
+
+    # Remove duplicate from final services
     unique_values = set(final_services)
 
-    # Konwersja zbioru z powrotem na listę
+    # Convert back to list
     unique_list = list(unique_values)
 
-    # Usunięcie z całego słownika wartości, które były zawarte w wybranej firmie
+    # Remove from dictionary values, which contains in selected company
     for key in arr:
         arr[key] = [value for value in arr[key] if value not in selected_services]
 
-    # Usunięcie pary klucz-wartość (firma), które już wybraliśmy
+    # Remove key - value (company), which we chose
     del arr[selected_companes[a]]
     a += 1
 
-    # Wyczyszczenie listy wartości przed kolejną iteracją
+    # Clear list of values before next iteration
     del list_of_values[:]
 
-    # Usunięcie par klucz-wartość (firm) ze słownika, gdzie nie ma już potrzebnych usług
+    # Remove key - value (company) from dictionary where is only price (0 services , len(price) = 1)
     keys_to_remove = []
     for key, values in arr.items():
         if len(values) == 1:
@@ -80,11 +78,11 @@ while(True):
     for key in keys_to_remove:
         del arr[key]
 
-    # Warunek kończący pętlę
+    # Loop ending condition
     if len(unique_list) == len(services):
         break
 
-# Wypisanie końcowych informacji
+# Showing info
 print("Final price: ",price," zł")
 print("Selected companes: ",selected_companes)
 
