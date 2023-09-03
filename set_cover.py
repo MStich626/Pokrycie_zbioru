@@ -42,7 +42,7 @@ while(True):
 
     # Finding company with lowest price
     for key, values in arr.items():
-        if values and values[-1] == minimum*(len(values)-1):
+        if values[-1] == minimum*(len(values)-1):
             selected_companes.append(str(key))
             price += minimum*(len(values)-1)
 
